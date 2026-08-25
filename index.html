@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>$100 | 100 USDC And A Dream</title>
+    <meta name="description" content="100 USDC and a dream" />
+    <meta property="og:title" content="$100 | 100 USDC And A Dream" />
+    <meta property="og:description" content="100 USDC and a dream" />
+    <meta property="og:image" content="./banner.jpg" />
+    <link rel="icon" href="./logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --base-blue: #0052ff;
+        --base-blue-bright: #3b82ff;
+        --base-blue-deep: #0033c4;
+        --ink: #050b1a;
+        --ink-soft: #0a1628;
+        --foam: #e8f0ff;
+        --muted: #8ba3c7;
+        --glow: rgba(0, 82, 255, 0.55);
+        --radius: 18px;
+        --font-display: "Syne", sans-serif;
+        --font-body: "Outfit", sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--foam);
+        background: var(--ink);
+        overflow-x: hidden;
+        line-height: 1.5;
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      /* Ambient canvas */
+      #fx-canvas {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.45;
+        animation: drift 18s ease-in-out infinite alternate;
+      }
+
+      .orb-1 {
+        width: 420px;
+        height: 420px;
+        background: var(--base-blue);
+        top: -10%;
+        left: -8%;
+      }
+
+      .orb-2 {
+        width: 360px;
+        height: 360px;
+        background: #1a6aff;
+        bottom: 10%;
+        right: -10%;
+        animation-delay: -6s;
+      }
+
+      .orb-3 {
+        width: 280px;
+        height: 280px;
+        background: #4d8cff;
+        top: 45%;
+        left: 40%;
+        opacity: 0.25;
+        animation-delay: -11s;
+      }
+
+      @keyframes drift {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        100% {
+          transform: translate(60px, -40px) scale(1.15);
+        }
+      }
+
+      .site {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Nav */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+        transition: background 0.35s ease, backdrop-filter 0.35s ease,
+          border-color 0.35s ease;
+        border-bottom: 1px solid transparent;
+      }
+
+      .nav.scrolled {
+        background: rgba(5, 11, 26, 0.78);
+        backdrop-filter: blur(16px);
+        border-bottom-color: rgba(0, 82, 255, 0.25);
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.1rem;
+        letter-spacing: -0.02em;
+      }
+
+      .nav-brand span {
+        max-width: 42vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .nav-brand img {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--base-blue);
+        box-shadow: 0 0 18px var(--glow);
+        animation: pulse-ring 2.8s ease-in-out infinite;
+      }
+
+      @keyframes pulse-ring {
+        0%,
+        100% {
+          box-shadow: 0 0 12px var(--glow);
+        }
+        50% {
+          box-shadow: 0 0 28px rgba(0, 82, 255, 0.9),
+            0 0 48px rgba(59, 130, 255, 0.35);
+        }
+      }
+
+      .nav-links {
+        display: none;
+        gap: 1.75rem;
+        align-items: center;
+        font-weight: 500;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      .nav-links a {
+        position: relative;
+        transition: color 0.2s;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: var(--base-blue-bright);
+        transition: width 0.25s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--foam);
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 0.6rem;
+        align-items: center;
+      }
+
+      .icon-btn {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        background: rgba(0, 82, 255, 0.15);
+        border: 1px solid rgba(0, 82, 255, 0.35);
+        transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+      }
+
+      .icon-btn:hover {
+        transform: translateY(-2px) scale(1.05);
+        background: rgba(0, 82, 255, 0.35);
+        box-shadow: 0 8px 24px var(--glow);
+      }
+
+      .icon-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.85rem 1.6rem;
+        border-radius: 999px;
+        font-family: var(--font-body);
+        font-weight: 700;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--base-blue-bright),
+          var(--base-blue),
+          var(--base-blue-deep)
+        );
+        color: #fff;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12),
+          0 10px 30px var(--glow);
+        animation: cta-glow 2.4s ease-in-out infinite;
+      }
+
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          transparent 30%,
+          rgba(255, 255, 255, 0.35) 50%,
+          transparent 70%
+        );
+        transform: translateX(-120%);
+        animation: shine 3.2s ease-in-out infinite;
+      }
+
+      @keyframes shine {
+        0%,
+        60% {
+          transform: translateX(-120%);
+        }
+        100% {
+          transform: translateX(120%);
+        }
+      }
+
+      @keyframes cta-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12),
+            0 10px 30px var(--glow);
+        }
+        50% {
+          box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2),
+            0 14px 42px rgba(0, 82, 255, 0.85);
+        }
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px) scale(1.03);
+      }
+
+      .btn-ghost {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: var(--foam);
+        backdrop-filter: blur(8px);
+      }
+
+      .btn-ghost:hover {
+        background: rgba(0, 82, 255, 0.2);
+        border-color: rgba(0, 82, 255, 0.5);
+        transform: translateY(-2px);
+      }
+
+      .nav-buy {
+        display: none;
+      }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: grid;
+        align-items: end;
+        isolation: isolate;
+      }
+
+      .hero-media {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        overflow: hidden;
+      }
+
+      .hero-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transform: scale(1.08);
+        animation: kenburns 22s ease-in-out infinite alternate;
+        filter: saturate(1.15) contrast(1.05);
+      }
+
+      @keyframes kenburns {
+        0% {
+          transform: scale(1.08) translate(0, 0);
+        }
+        100% {
+          transform: scale(1.18) translate(-2%, -1%);
+        }
+      }
+
+      .hero-media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            180deg,
+            rgba(5, 11, 26, 0.35) 0%,
+            rgba(5, 11, 26, 0.15) 35%,
+            rgba(5, 11, 26, 0.55) 70%,
+            rgba(5, 11, 26, 0.95) 100%
+          ),
+          radial-gradient(
+            ellipse at 50% 30%,
+            rgba(0, 82, 255, 0.25),
+            transparent 55%
+          );
+        z-index: 1;
+      }
+
+      .hero-scan {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 3px,
+          rgba(0, 82, 255, 0.03) 3px,
+          rgba(0, 82, 255, 0.03) 6px
+        );
+        mix-blend-mode: overlay;
+        pointer-events: none;
+        animation: scan-drift 8s linear infinite;
+      }
+
+      @keyframes scan-drift {
+        from {
+          background-position: 0 0;
+        }
+        to {
+          background-position: 0 120px;
+        }
+      }
+
+      .hero-inner {
+        width: min(1120px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 7.5rem 0 3.5rem;
+        display: grid;
+        gap: 1.5rem;
+        justify-items: start;
+      }
+
+      .brand-mark {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        animation: rise-in 0.9s ease both;
+      }
+
+      .brand-mark img {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid rgba(255, 255, 255, 0.85);
+        box-shadow: 0 0 0 4px rgba(0, 82, 255, 0.45),
+          0 20px 50px rgba(0, 0, 0, 0.45);
+        animation: float-y 4.5s ease-in-out infinite;
+      }
+
+      @keyframes float-y {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .brand-text {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: clamp(2.4rem, 8vw, 4.6rem);
+        letter-spacing: -0.04em;
+        line-height: 0.95;
+        background: linear-gradient(
+          180deg,
+          #fff 10%,
+          #c9dcff 55%,
+          var(--base-blue-bright)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 40px rgba(0, 82, 255, 0.25);
+        animation: brand-shimmer 5s ease-in-out infinite;
+        background-size: 100% 200%;
+      }
+
+      @keyframes brand-shimmer {
+        0%,
+        100% {
+          background-position: 0 0%;
+        }
+        50% {
+          background-position: 0 100%;
+        }
+      }
+
+      .brand-symbol {
+        display: inline-block;
+        margin-left: 0.35rem;
+        padding: 0.15rem 0.55rem;
+        border-radius: 8px;
+        font-size: 0.35em;
+        vertical-align: middle;
+        color: #fff;
+        background: var(--base-blue);
+        box-shadow: 0 0 20px var(--glow);
+        letter-spacing: 0;
+      }
+
+      .hero h1 {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: clamp(1.35rem, 3.5vw, 2rem);
+        letter-spacing: -0.02em;
+        max-width: 18ch;
+        animation: rise-in 0.9s 0.12s ease both;
+      }
+
+      .hero-lead {
+        color: var(--muted);
+        font-size: clamp(1rem, 2.2vw, 1.2rem);
+        max-width: 36ch;
+        animation: rise-in 0.9s 0.22s ease both;
+      }
+
+      .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        animation: rise-in 0.9s 0.32s ease both;
+      }
+
+      .ca-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        padding: 0.7rem 1rem;
+        border-radius: 14px;
+        background: rgba(5, 11, 26, 0.65);
+        border: 1px solid rgba(0, 82, 255, 0.4);
+        backdrop-filter: blur(12px);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        animation: rise-in 0.9s 0.4s ease both;
+      }
+
+      .ca-chip:hover {
+        border-color: var(--base-blue-bright);
+        box-shadow: 0 0 24px var(--glow);
+        transform: translateY(-2px);
+      }
+
+      .ca-chip .copy-hint {
+        color: var(--base-blue-bright);
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      @keyframes rise-in {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Marquee */
+      .marquee-wrap {
+        overflow: hidden;
+        border-block: 1px solid rgba(0, 82, 255, 0.25);
+        background: linear-gradient(
+          90deg,
+          rgba(0, 82, 255, 0.18),
+          rgba(5, 11, 26, 0.9),
+          rgba(0, 82, 255, 0.18)
+        );
+        padding: 0.85rem 0;
+      }
+
+      .marquee {
+        display: flex;
+        width: max-content;
+        gap: 2.5rem;
+        animation: marquee 28s linear infinite;
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        color: #b7ccf5;
+      }
+
+      .marquee span {
+        display: inline-flex;
+        align-items: center;
+        gap: 2.5rem;
+      }
+
+      .marquee .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--base-blue-bright);
+        box-shadow: 0 0 12px var(--glow);
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* Sections */
+      section {
+        position: relative;
+        padding: 5.5rem 0;
+      }
+
+      .section-inner {
+        width: min(980px, calc(100% - 2rem));
+        margin: 0 auto;
+      }
+
+      .section-label {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--base-blue-bright);
+        margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: clamp(2rem, 5vw, 3rem);
+        letter-spacing: -0.03em;
+        margin-bottom: 1rem;
+      }
+
+      .section-lead {
+        color: var(--muted);
+        font-size: 1.1rem;
+        max-width: 42ch;
+        margin-bottom: 2rem;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* About */
+      .about {
+        background: radial-gradient(
+            ellipse at 20% 0%,
+            rgba(0, 82, 255, 0.18),
+            transparent 50%
+          ),
+          var(--ink);
+      }
+
+      .about-grid {
+        display: grid;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .about-visual {
+        position: relative;
+        justify-self: center;
+      }
+
+      .about-visual img {
+        width: min(280px, 70vw);
+        border-radius: 50%;
+        border: 3px solid rgba(0, 82, 255, 0.6);
+        box-shadow: 0 0 0 12px rgba(0, 82, 255, 0.12),
+          0 25px 60px rgba(0, 0, 0, 0.45);
+        animation: spin-slow 18s linear infinite;
+      }
+
+      .about-ring {
+        position: absolute;
+        inset: -18px;
+        border-radius: 50%;
+        border: 2px dashed rgba(0, 82, 255, 0.45);
+        animation: spin-slow 12s linear infinite reverse;
+      }
+
+      .about-ring-2 {
+        inset: -36px;
+        border-style: solid;
+        border-color: transparent;
+        border-top-color: var(--base-blue-bright);
+        border-bottom-color: rgba(0, 82, 255, 0.2);
+        animation-duration: 8s;
+      }
+
+      @keyframes spin-slow {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .about-copy p {
+        color: var(--muted);
+        font-size: 1.05rem;
+        margin-bottom: 1rem;
+      }
+
+      .token-meta {
+        display: grid;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .token-meta div {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.85rem 1rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(0, 82, 255, 0.2);
+      }
+
+      .token-meta dt {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+
+      .token-meta dd {
+        font-weight: 700;
+        text-align: right;
+      }
+
+      /* How to buy */
+      .howto {
+        background: linear-gradient(
+          180deg,
+          var(--ink) 0%,
+          var(--ink-soft) 50%,
+          var(--ink) 100%
+        );
+      }
+
+      .steps {
+        display: grid;
+        gap: 1.25rem;
+        counter-reset: step;
+      }
+
+      .step {
+        position: relative;
+        padding: 1.35rem 1.35rem 1.35rem 4.5rem;
+        border-radius: var(--radius);
+        background: linear-gradient(
+          135deg,
+          rgba(0, 82, 255, 0.12),
+          rgba(255, 255, 255, 0.02)
+        );
+        border: 1px solid rgba(0, 82, 255, 0.28);
+        transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+        overflow: hidden;
+      }
+
+      .step::before {
+        counter-increment: step;
+        content: counter(step);
+        position: absolute;
+        left: 1.1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-family: var(--font-display);
+        font-weight: 800;
+        background: var(--base-blue);
+        box-shadow: 0 0 20px var(--glow);
+      }
+
+      .step::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 0% 50%,
+          rgba(0, 82, 255, 0.2),
+          transparent 45%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .step:hover {
+        transform: translateX(6px);
+        border-color: var(--base-blue-bright);
+        box-shadow: 0 12px 40px rgba(0, 82, 255, 0.2);
+      }
+
+      .step:hover::after {
+        opacity: 1;
+      }
+
+      .step h3 {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        margin-bottom: 0.35rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .step p {
+        color: var(--muted);
+        font-size: 0.95rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .howto-cta {
+        margin-top: 2rem;
+        text-align: center;
+      }
+
+      /* Join */
+      .join {
+        background: radial-gradient(
+            ellipse at 50% 100%,
+            rgba(0, 82, 255, 0.28),
+            transparent 55%
+          ),
+          var(--ink);
+      }
+
+      .join-panel {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        border-radius: 28px;
+        background: linear-gradient(
+          160deg,
+          rgba(0, 82, 255, 0.22),
+          rgba(5, 11, 26, 0.9) 45%,
+          rgba(0, 51, 196, 0.25)
+        );
+        border: 1px solid rgba(0, 82, 255, 0.35);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .join-panel::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        background: conic-gradient(
+          from 0deg,
+          transparent,
+          rgba(0, 82, 255, 0.15),
+          transparent 30%
+        );
+        animation: spin-slow 14s linear infinite;
+        pointer-events: none;
+      }
+
+      .join-panel > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .join-panel .section-lead {
+        margin-inline: auto;
+      }
+
+      .social-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1.75rem;
+      }
+
+      .social-card {
+        min-width: 160px;
+        padding: 1.1rem 1.4rem;
+        border-radius: 16px;
+        background: rgba(5, 11, 26, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.55rem;
+        transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      }
+
+      .social-card:hover {
+        transform: translateY(-6px) scale(1.03);
+        border-color: var(--base-blue-bright);
+        box-shadow: 0 16px 40px var(--glow);
+      }
+
+      .social-card svg {
+        width: 28px;
+        height: 28px;
+        fill: currentColor;
+      }
+
+      .social-card strong {
+        font-family: var(--font-display);
+        font-size: 1rem;
+      }
+
+      .social-card span {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      /* Footer */
+      footer {
+        padding: 2.5rem 1rem 3rem;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+        border-top: 1px solid rgba(0, 82, 255, 0.2);
+      }
+
+      footer strong {
+        color: var(--foam);
+      }
+
+      /* Toast */
+      .toast {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%) translateY(120%);
+        z-index: 200;
+        padding: 0.85rem 1.25rem;
+        border-radius: 999px;
+        background: var(--base-blue);
+        color: #fff;
+        font-weight: 600;
+        box-shadow: 0 12px 40px var(--glow);
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        pointer-events: none;
+      }
+
+      .toast.show {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      /* Cursor glow (desktop) */
+      .cursor-glow {
+        position: fixed;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 82, 255, 0.22),
+          transparent 65%
+        );
+        pointer-events: none;
+        z-index: 2;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        mix-blend-mode: screen;
+      }
+
+      @media (min-width: 768px) {
+        .nav-links {
+          display: flex;
+        }
+
+        .nav-buy {
+          display: inline-flex;
+        }
+
+        .about-grid {
+          grid-template-columns: 0.9fr 1.1fr;
+          gap: 3rem;
+        }
+
+        .steps {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .step:nth-child(3),
+        .step:nth-child(4) {
+          grid-column: span 1;
+        }
+      }
+
+      @media (min-width: 960px) {
+        .nav {
+          padding: 1.1rem 2.5rem;
+        }
+
+        .hero-inner {
+          padding-bottom: 4.5rem;
+        }
+
+        .steps {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="fx-canvas" aria-hidden="true"></canvas>
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+    <div class="orb orb-3" aria-hidden="true"></div>
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+    <div class="site">
+      <header class="nav" id="nav">
+        <a class="nav-brand" href="#top">
+          <img src="./logo.jpg" alt="$100 logo" />
+          <span>100 USDC And A Dream</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#howto">How to Buy</a>
+          <a href="#join">Join Us</a>
+        </nav>
+        <div class="nav-actions">
+          <a
+            class="icon-btn"
+            href="https://x.com/SledgeCobiecat"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter / X"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              />
+            </svg>
+          </a>
+          <a
+            class="icon-btn"
+            href="https://t.me/sledgehammer_portal"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Telegram"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.623 4.827-4.35c.212-.19-.045-.295-.324-.105l-5.96 3.77-2.57-.802c-.557-.176-.566-.557.12-.824l10.033-3.87c.462-.173.868.107.734.809z"
+              />
+            </svg>
+          </a>
+          <a
+            class="btn btn-primary nav-buy"
+            href="https://app.uniswap.org/swap?chain=base&inputCurrency=NATIVE&outputCurrency=0xComingSoon"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Buy on Uniswap</a
+          >
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="hero-media">
+            <img
+              src="./banner.jpg"
+              alt="100 USDC And A Dream on Base"
+              fetchpriority="high"
+            />
+          </div>
+          <div class="hero-scan" aria-hidden="true"></div>
+          <div class="hero-inner">
+            <div class="brand-mark">
+              <img src="./logo.jpg" alt="$100" />
+              <div class="brand-text">
+                100 USDC And A Dream
+                <span class="brand-symbol">$100</span>
+              </div>
+            </div>
+            <h1>Built on Base. Born from a dream.</h1>
+            <p class="hero-lead">100 USDC and a dream</p>
+            <div class="hero-cta">
+              <a
+                class="btn btn-primary"
+                href="https://app.uniswap.org/swap?chain=base&inputCurrency=NATIVE&outputCurrency=0xComingSoon"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Buy $100</a
+              >
+              <a class="btn btn-ghost" href="#about">Learn more</a>
+            </div>
+            <button
+              class="ca-chip"
+              id="ca-copy"
+              type="button"
+              title="Copy contract address"
+            >
+              <span>CA: 0xComingSoon</span>
+              <span class="copy-hint">Copy</span>
+            </button>
+          </div>
+        </section>
+
+        <div class="marquee-wrap" aria-hidden="true">
+          <div class="marquee">
+            <span
+              >$100 <i class="dot"></i> 100 USDC And A Dream
+              <i class="dot"></i> Base Chain <i class="dot"></i> Uniswap
+              <i class="dot"></i> 100 USDC and a dream <i class="dot"></i>
+              $100 <i class="dot"></i> 100 USDC And A Dream
+              <i class="dot"></i> Base Chain <i class="dot"></i> Uniswap
+              <i class="dot"></i> 100 USDC and a dream <i class="dot"></i
+            ></span>
+            <span
+              >$100 <i class="dot"></i> 100 USDC And A Dream
+              <i class="dot"></i> Base Chain <i class="dot"></i> Uniswap
+              <i class="dot"></i> 100 USDC and a dream <i class="dot"></i>
+              $100 <i class="dot"></i> 100 USDC And A Dream
+              <i class="dot"></i> Base Chain <i class="dot"></i> Uniswap
+              <i class="dot"></i> 100 USDC and a dream <i class="dot"></i
+            ></span>
+          </div>
+        </div>
+
+        <section class="about" id="about">
+          <div class="section-inner">
+            <div class="about-grid">
+              <div class="about-visual reveal">
+                <div class="about-ring" aria-hidden="true"></div>
+                <div class="about-ring about-ring-2" aria-hidden="true"></div>
+                <img src="./logo.jpg" alt="$100 token logo" />
+              </div>
+              <div class="about-copy reveal">
+                <span class="section-label">About</span>
+                <h2 class="section-title">One hundred. One dream.</h2>
+                <p>
+                  <strong>100 USDC And A Dream</strong> ($100) is a Base-chain
+                  community token with a simple origin story: start with a
+                  hundred, chase the upside, and build in public.
+                </p>
+                <p>
+                  Live on Base and tradeable through Uniswap — transparent,
+                  community-first, and ready for whoever shows up with conviction.
+                </p>
+                <dl class="token-meta">
+                  <div>
+                    <dt>Token Name</dt>
+                    <dd>100 USDC And A Dream</dd>
+                  </div>
+                  <div>
+                    <dt>Symbol</dt>
+                    <dd>$100</dd>
+                  </div>
+                  <div>
+                    <dt>Network</dt>
+                    <dd>Base</dd>
+                  </div>
+                  <div>
+                    <dt>Contract</dt>
+                    <dd>0xComingSoon</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="howto" id="howto">
+          <div class="section-inner">
+            <div class="reveal">
+              <span class="section-label">How to Buy</span>
+              <h2 class="section-title">Get $100 in four steps</h2>
+              <p class="section-lead">
+                Grab ETH on Base, open Uniswap, and swap into $100 — takes
+                minutes.
+              </p>
+            </div>
+            <div class="steps">
+              <article class="step reveal">
+                <h3>Get a wallet</h3>
+                <p>
+                  Install MetaMask, Coinbase Wallet, or Rainbow and back up your
+                  seed phrase.
+                </p>
+              </article>
+              <article class="step reveal">
+                <h3>Bridge to Base</h3>
+                <p>
+                  Move ETH onto Base via the official bridge or your exchange’s
+                  Base withdrawal.
+                </p>
+              </article>
+              <article class="step reveal">
+                <h3>Open Uniswap</h3>
+                <p>
+                  Connect your wallet on Uniswap and switch the network to Base.
+                </p>
+              </article>
+              <article class="step reveal">
+                <h3>Swap for $100</h3>
+                <p>
+                  Paste the CA, set ETH → $100, confirm the swap, and you’re in.
+                </p>
+              </article>
+            </div>
+            <div class="howto-cta reveal">
+              <a
+                class="btn btn-primary"
+                href="https://app.uniswap.org/swap?chain=base&inputCurrency=NATIVE&outputCurrency=0xComingSoon"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Buy on Uniswap</a
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="join" id="join">
+          <div class="section-inner">
+            <div class="join-panel reveal">
+              <span class="section-label">Join Us</span>
+              <h2 class="section-title">Come build the dream</h2>
+              <p class="section-lead">
+                Follow the culture, share the memes, and stay early with the
+                community on X and Telegram.
+              </p>
+              <div class="social-row">
+                <a
+                  class="social-card"
+                  href="https://x.com/SledgeCobiecat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                    />
+                  </svg>
+                  <strong>Twitter / X</strong>
+                  <span>@SledgeCobiecat</span>
+                </a>
+                <a
+                  class="social-card"
+                  href="https://t.me/sledgehammer_portal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.223-.548.223l.188-2.623 4.827-4.35c.212-.19-.045-.295-.324-.105l-5.96 3.77-2.57-.802c-.557-.176-.566-.557.12-.824l10.033-3.87c.462-.173.868.107.734.809z"
+                    />
+                  </svg>
+                  <strong>Telegram</strong>
+                  <span>sledgehammer_portal</span>
+                </a>
+                <a
+                  class="social-card"
+                  href="https://app.uniswap.org/swap?chain=base&inputCurrency=NATIVE&outputCurrency=0xComingSoon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.64-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"
+                    />
+                  </svg>
+                  <strong>Buy $100</strong>
+                  <span>Uniswap · Base</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>
+          <strong>$100</strong> · 100 USDC And A Dream · Base · CA:
+          0xComingSoon
+        </p>
+        <p style="margin-top: 0.5rem">100 USDC and a dream</p>
+      </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status">CA copied!</div>
+
+    <script>
+      (function () {
+        const CA = "0xComingSoon";
+        const nav = document.getElementById("nav");
+        const toast = document.getElementById("toast");
+        const caBtn = document.getElementById("ca-copy");
+        const cursorGlow = document.getElementById("cursor-glow");
+        const canvas = document.getElementById("fx-canvas");
+        const ctx = canvas.getContext("2d");
+        const reduceMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+        function onScroll() {
+          nav.classList.toggle("scrolled", window.scrollY > 24);
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        onScroll();
+
+        caBtn.addEventListener("click", async function () {
+          try {
+            await navigator.clipboard.writeText(CA);
+          } catch (e) {
+            const ta = document.createElement("textarea");
+            ta.value = CA;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+          }
+          toast.classList.add("show");
+          clearTimeout(toast._t);
+          toast._t = setTimeout(function () {
+            toast.classList.remove("show");
+          }, 1800);
+        });
+
+        const reveals = document.querySelectorAll(".reveal");
+        if ("IntersectionObserver" in window) {
+          const io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("visible");
+                  io.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.18, rootMargin: "0px 0px -40px 0px" }
+          );
+          reveals.forEach(function (el) {
+            io.observe(el);
+          });
+        } else {
+          reveals.forEach(function (el) {
+            el.classList.add("visible");
+          });
+        }
+
+        if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+          let mx = -999,
+            my = -999;
+          window.addEventListener(
+            "pointermove",
+            function (e) {
+              mx = e.clientX;
+              my = e.clientY;
+              cursorGlow.style.opacity = "1";
+              cursorGlow.style.left = mx + "px";
+              cursorGlow.style.top = my + "px";
+            },
+            { passive: true }
+          );
+          window.addEventListener("pointerleave", function () {
+            cursorGlow.style.opacity = "0";
+          });
+        }
+
+        // Particle field
+        let particles = [];
+        let w = 0,
+          h = 0,
+          raf = 0;
+
+        function resize() {
+          w = canvas.width = window.innerWidth;
+          h = canvas.height = window.innerHeight;
+          const count = Math.min(90, Math.floor((w * h) / 18000));
+          particles = Array.from({ length: count }, function () {
+            return {
+              x: Math.random() * w,
+              y: Math.random() * h,
+              r: Math.random() * 2.2 + 0.4,
+              vx: (Math.random() - 0.5) * 0.35,
+              vy: -Math.random() * 0.45 - 0.1,
+              a: Math.random() * 0.55 + 0.15,
+            };
+          });
+        }
+
+        function tick() {
+          ctx.clearRect(0, 0, w, h);
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.y < -10) p.y = h + 10;
+            if (p.x < -10) p.x = w + 10;
+            if (p.x > w + 10) p.x = -10;
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(59, 130, 255," + p.a + ")";
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          // soft links
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const a = particles[i];
+              const b = particles[j];
+              const dx = a.x - b.x;
+              const dy = a.y - b.y;
+              const d2 = dx * dx + dy * dy;
+              if (d2 < 120 * 120) {
+                const alpha = 0.12 * (1 - d2 / (120 * 120));
+                ctx.strokeStyle = "rgba(0, 82, 255," + alpha + ")";
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+              }
+            }
+          }
+          raf = requestAnimationFrame(tick);
+        }
+
+        if (!reduceMotion) {
+          resize();
+          window.addEventListener("resize", resize);
+          tick();
+        }
+      })();
+    </script>
+  </body>
+</html>
